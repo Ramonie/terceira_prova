@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'telacaptura.dart';
 
 class TelaDetalhesPokemon extends StatefulWidget {
   final int pokemonId;
 
-  TelaDetalhesPokemon({Key? key, required this.pokemonId}) : super(key: key);
+  const TelaDetalhesPokemon({Key? key, required this.pokemonId}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TelaDetalhesPokemonState createState() => _TelaDetalhesPokemonState();
 }
 
@@ -62,6 +60,18 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text('ID: ${_pokemon.id}'),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Nome: ${_pokemon.name}'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Altura: ${_pokemon.height}'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Peso: ${_pokemon.height}'),
+              ),
               // Adicione mais informações conforme necessário
             ],
           ),
@@ -70,5 +80,3 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
     }
   }
 }
-
-// Restante do código do Pokemon, fetchPokemonById, etc.
