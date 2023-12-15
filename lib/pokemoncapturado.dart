@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+import 'pokemondetalhes.dart';
+
 class TelaPokemonCapturado extends StatefulWidget {
   const TelaPokemonCapturado({Key? key}) : super(key: key);
 
@@ -45,12 +47,24 @@ class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
         itemCount: pokemonsCapturados.length,
         itemBuilder: (context, index) {
           final pokemon = pokemonsCapturados[index];
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(pokemon.imageUrl),
+          return GestureDetector(
+            onTap: () {
+              // Navegar para TelaDetalhesPokemon
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TelaDetalhesPokemon(pokemonId: pokemon.id),
+                ),
+              );
+            },
+           
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(pokemon.imageUrl),
+              ),
+              title: Text(pokemon.name),
+              subtitle: Text('ID: ${pokemon.id}'),
             ),
-            title: Text(pokemon.name),
-            subtitle: Text('ID: ${pokemon.id}'),
           );
         },
       );
