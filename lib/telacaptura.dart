@@ -4,48 +4,21 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('Pokémon App'),
-            bottom: TabBar(
-              tabs: [
-                Tab(text: 'List'),
-                Tab(text: 'Capture'),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: [
-              PokemonList(),
-              TelaCaptura(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class PokemonList extends StatelessWidget {
+  const PokemonList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Pokemon>?>(
       future: fetchPokemonList(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
-          return Center(child: Text('No Pokémon data available.'));
+          return const Center(child: Text('No Pokémon data available.'));
         } else {
           return ListView.builder(
             itemCount: snapshot.data!.length,
@@ -66,7 +39,10 @@ class PokemonList extends StatelessWidget {
 }
 
 class TelaCaptura extends StatefulWidget {
+  const TelaCaptura({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TelaCapturaState createState() => _TelaCapturaState();
   
   void gerarSorteios() {}
@@ -83,7 +59,7 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
     final Random random = Random();
 
     while (numerosSorteados.length < 6) {
-      int sorteio = random.nextInt(1018);
+      int sorteio = random.nextInt(20);//1018;
       if (!numerosSorteados.contains(sorteio)) {
         numerosSorteados.add(sorteio);
       }
@@ -100,7 +76,7 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
 
     return Scaffold(
       body: sorteios.isEmpty
-          ? Center(child: Text('Sem números sorteados. Verifique a conexão com a internet.'))
+          ? const Center(child: Text('Sem números sorteados. Verifique a conexão com a internet.'))
           : ListView.builder(
               itemCount: sorteios.length,
               itemBuilder: (context, index) {
@@ -111,16 +87,15 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
         onPressed: () {
           gerarSorteios();
         },
-        child: Icon(Icons.shuffle),
+        child: const Icon(Icons.shuffle),
       ),
     );
   }
 }
-
 class PokemonCapturaItem extends StatelessWidget {
   final int numeroSorteado;
 
-  PokemonCapturaItem({required this.numeroSorteado});
+  const PokemonCapturaItem({Key? key, required this.numeroSorteado}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +103,7 @@ class PokemonCapturaItem extends StatelessWidget {
       future: fetchPokemonById(numeroSorteado),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData) {
@@ -136,6 +111,7 @@ class PokemonCapturaItem extends StatelessWidget {
         } else {
           final Pokemon pokemon = snapshot.data!;
           return ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
             leading: CircleAvatar(
               backgroundImage: NetworkImage(pokemon.imageUrl),
             ),
@@ -152,7 +128,7 @@ class PokemonCapturaItem extends StatelessWidget {
 class CapturarButton extends StatelessWidget {
   final Pokemon pokemon;
 
-  CapturarButton({required this.pokemon});
+  const CapturarButton({super.key, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -180,17 +156,17 @@ class CapturarButton extends StatelessWidget {
           print('Capturou o Pokémon ${pokemon.name}!');
           await adicionarPokemonCapturado(pokemon);
           // Atualiza a lista de sorteios após a captura
-          TelaCaptura().gerarSorteios();
+          const TelaCaptura().gerarSorteios();
         }
       },
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: color,
         ),
         child: Text(
           buttonText,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
