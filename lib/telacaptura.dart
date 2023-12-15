@@ -60,7 +60,7 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
     final Random random = Random();
 
     while (numerosSorteados.length < 6) {
-      int sorteio = random.nextInt(20);//1018;
+      int sorteio = random.nextInt(20);//1017-> esta 20 para o sorteio ser rapido e percebermos o botão do sorteado desabilitado
       if (!numerosSorteados.contains(sorteio)) {
         numerosSorteados.add(sorteio);
       }
@@ -206,7 +206,7 @@ Future<Pokemon> fetchPokemonById(int id) async {
 }
 
 Future<List<Pokemon>> fetchPokemonList() async {
-  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=50'));
+  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10'));//1017-> esta 10 para reduzir o tempo de carregamento
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body)['results'];

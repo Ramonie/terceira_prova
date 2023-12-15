@@ -43,7 +43,7 @@ class TelaHome extends StatelessWidget {
 }
 
 Future<List<Pokemon>> fetchPokemonList() async {
-  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10'));
+  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=1017'));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body)['results'];

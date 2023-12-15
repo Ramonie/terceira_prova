@@ -13,27 +13,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 4, // Número de abas
+        length: 3, // Número de abas
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Pokémon List'),
             bottom: const TabBar(
               tabs: [
-                Tab(text: 'Home'), // Aba 1
+                //Tab(text: 'Home'), // Aba 1
                 Tab(text: 'Capturar'), // Aba 2
                 Tab(text: 'Capturados'),
                 Tab(text: 'Sobre',)
               ],
             ),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
               // Conteúdo da Aba 1
-              TelaHome(),
+              //TelaHome(),
               // Conteúdo da Aba 2
-              const TelaCaptura(),
-              const TelaPokemonCapturado(),
-              const TelaSobre(),
+              TelaCaptura(),
+              TelaPokemonCapturado(),
+              TelaSobre(),
             
             ],
           ),
