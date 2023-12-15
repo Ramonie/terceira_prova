@@ -14,7 +14,7 @@ class TelaPokemonCapturado extends StatefulWidget {
 }
 
 class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
-  late List<Pokemon> pokemonsCapturados;
+  late List<Pokemon> pokemonsCapturados = [] ;
 
   @override
   void initState() {

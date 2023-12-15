@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terceira_prova/pokemoncapturado.dart';
+import 'package:terceira_prova/sobre.dart';
 import 'package:terceira_prova/telacaptura.dart';
 import 'package:terceira_prova/telahome.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 3, // Número de abas
+        length: 4, // Número de abas
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Pokémon List'),
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
                 Tab(text: 'Home'), // Aba 1
                 Tab(text: 'Capturar'), // Aba 2
                 Tab(text: 'Capturados'),
+                Tab(text: 'Sobre',)
               ],
             ),
           ),
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
               // Conteúdo da Aba 2
               const TelaCaptura(),
               const TelaPokemonCapturado(),
+              const TelaSobre(),
             
             ],
           ),

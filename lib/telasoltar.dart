@@ -1,9 +1,8 @@
-// ignore_for_file: unnecessary_null_comparison
 
-import 'dart:convert';
 import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:terceira_prova/pokemon.dart';
 import 'package:terceira_prova/telacaptura.dart';
 
@@ -37,16 +36,13 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
     }
   }
 
-  void _confirmarSoltura() {
-    // Lógica para confirmar a soltura do Pokémon (delete do banco de dados local)
-    // Adicione a lógica necessária para deletar o Pokémon do banco de dados local
-    // Exemplo: PokemonDatabase.deletePokemon(widget.pokemonId);
+  Future<void> _confirmarSoltura() async {
+    
+
     Navigator.pop(context as BuildContext); // Voltar para a tela anterior
   }
 
-  void _cancelarSoltura() {
-    Navigator.pop(context as BuildContext); // Voltar para a tela anterior
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +84,6 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                 child: Text('Peso: ${_pokemon.weight}'),
               ),
               // Adicione mais informações conforme necessário
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Solatr'),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -100,8 +92,10 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                     child: const Text('Confirmar'),
                   ),
                   ElevatedButton(
-                    onPressed: _cancelarSoltura,
-                    child: const Text('Cancelar'),
+                    onPressed:   () { 
+                      Navigator.pop(context);
+                    },
+                    child: Text('Cancelar'),
                   ),
                 ],
               ),
