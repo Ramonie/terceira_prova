@@ -1,6 +1,3 @@
-
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:terceira_prova/pokemon.dart';
@@ -35,14 +32,6 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
       // Lide com o erro conforme necessário
     }
   }
-
-  Future<void> _confirmarSoltura() async {
-    
-
-    Navigator.pop(context as BuildContext); // Voltar para a tela anterior
-  }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +77,22 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: _confirmarSoltura,
+                    onPressed: () async {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                      // Remover o registro do Pokémon do SharedPreferences
+                      prefs.remove('pokemon_${widget.pokemonId}');
+
+                      // Exibir o nome do Pokémon
+                      print('Pokémon solto: ${_pokemon.name}');
+
+                      // Usando um Navigator global para navegar de volta
+                      Navigator.of(context as BuildContext).pop();
+                    },
                     child: const Text('Confirmar'),
                   ),
                   ElevatedButton(
-                    onPressed:   () { 
+                    onPressed: () {
                       Navigator.pop(context);
                     },
                     child: Text('Cancelar'),

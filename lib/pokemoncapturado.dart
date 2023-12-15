@@ -70,7 +70,7 @@ class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
             },
             child: ListTile(
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(pokemon.imageUrl),
+                backgroundImage: NetworkImage(pokemon.imageUrl,scale: 1),
               ),
               title: Text(pokemon.name),
               subtitle: Text('ID: ${pokemon.id}'),
