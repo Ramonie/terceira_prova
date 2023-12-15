@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:terceira_prova/pokemon.dart';
+import 'package:terceira_prova/telasoltar.dart';
 import 'dart:convert';
 
 import 'pokemondetalhes.dart';
@@ -58,7 +59,15 @@ class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
                 ),
               );
             },
-           
+            onLongPress: () {
+              // Navegar para TelaSoltarPokemon com um toque longo
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TelaSoltarPokemon(pokemonId: pokemon.id),
+                ),
+              );
+            },
             child: ListTile(
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(pokemon.imageUrl),

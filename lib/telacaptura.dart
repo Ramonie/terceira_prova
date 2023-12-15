@@ -201,7 +201,7 @@ Future<Pokemon> fetchPokemonById(int id) async {
     final Map<String, dynamic> data = json.decode(response.body);
     return Pokemon.fromJson(data);
   } else {
-    throw Exception('Failed to load Pokémon data for ID $id');
+    throw Exception('Falha ao carregar dados de Pokémon para ID $id');
   }
 }
 

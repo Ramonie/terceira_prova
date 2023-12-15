@@ -38,4 +38,6 @@ class Pokemon {
       // Adicione outros atributos ao mapa conforme necessário
     };
   }
+
+  carregarImagem() {}
 }
