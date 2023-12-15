@@ -2,8 +2,8 @@ class Pokemon {
   final int id;
   final String name;
   final String imageUrl;
-  final double height;
-  final double weight;
+  final double? height;
+  final double? weight;
   // Adicione outros atributos conforme necessário
 
   Pokemon({

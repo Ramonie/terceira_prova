@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:terceira_prova/pokemon.dart';
 
 
 class PokemonList extends StatelessWidget {
@@ -192,27 +193,6 @@ class CapturarButton extends StatelessWidget {
   }
 }
 
-class Pokemon {
-  final int id;
-  final String name;
-  final String imageUrl;
-
-  Pokemon({required this.id, required this.name, required this.imageUrl});
-
-  factory Pokemon.fromJson(Map<String, dynamic> json) {
-    return Pokemon(
-      id: json['id'],
-      name: json['name'],
-      imageUrl: json['sprites'] != null ? json['sprites']['front_default'] : '',
-    );
-  }
-
-  get height => null;
-
-  Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name, 'imageUrl': imageUrl};
-  }
-}
 
 Future<Pokemon> fetchPokemonById(int id) async {
   final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id'));

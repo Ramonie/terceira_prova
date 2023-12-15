@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:terceira_prova/telacaptura.dart';
+import 'package:terceira_prova/pokemon.dart';
+
 
 
 class TelaHome extends StatelessWidget {

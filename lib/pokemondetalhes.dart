@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:terceira_prova/pokemon.dart';
 import 'telacaptura.dart';
 
 class TelaDetalhesPokemon extends StatefulWidget {
