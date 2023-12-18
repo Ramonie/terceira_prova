@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:terceira_prova/pokemon.dart';
 
-
 class PokemonList extends StatelessWidget {
   const PokemonList({super.key});
 
@@ -45,7 +44,7 @@ class TelaCaptura extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
   _TelaCapturaState createState() => _TelaCapturaState();
-  
+
   void gerarSorteios() {}
 }
 
@@ -60,7 +59,7 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
     final Random random = Random();
 
     while (numerosSorteados.length < 6) {
-      int sorteio = random.nextInt(20);//1017-> esta 20 para o sorteio ser rapido e percebermos o botão do sorteado desabilitado
+      int sorteio = random.nextInt(20);
       if (!numerosSorteados.contains(sorteio)) {
         numerosSorteados.add(sorteio);
       }
@@ -93,6 +92,7 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
     );
   }
 }
+
 class PokemonCapturaItem extends StatelessWidget {
   final int numeroSorteado;
 
@@ -126,18 +126,31 @@ class PokemonCapturaItem extends StatelessWidget {
   }
 }
 
-class CapturarButton extends StatelessWidget {
+class CapturarButton extends StatefulWidget {
   final Pokemon pokemon;
 
   const CapturarButton({super.key, required this.pokemon});
 
   @override
+  _CapturarButtonState createState() => _CapturarButtonState();
+}
+
+class _CapturarButtonState extends State<CapturarButton> {
+  late Future<bool> _isCapturedFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _isCapturedFuture = isPokemonCaptured(widget.pokemon);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: isPokemonCaptured(pokemon),
+      future: _isCapturedFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container();
+          return _buildButton(Colors.grey, 'Carregando...');
         } else if (snapshot.hasError) {
           print('Error checking if Pokemon is captured: ${snapshot.error}');
           return _buildButton(Colors.red, 'Capturar');
@@ -151,13 +164,17 @@ class CapturarButton extends StatelessWidget {
   Widget _buildButton(Color color, String buttonText) {
     return InkWell(
       onTap: () async {
-        bool isCaptured = await isPokemonCaptured(pokemon);
+        bool isCaptured = await _isCapturedFuture;
 
         if (!isCaptured) {
-          print('Capturou o Pokémon ${pokemon.name}!');
-          await adicionarPokemonCapturado(pokemon);
+          print('Capturou o Pokémon ${widget.pokemon.name}!');
+          await adicionarPokemonCapturado(widget.pokemon);
           // Atualiza a lista de sorteios após a captura
-          const TelaCaptura().gerarSorteios();
+          TelaCaptura telaCaptura = TelaCaptura();
+          telaCaptura.gerarSorteios();
+          setState(() {
+            _isCapturedFuture = isPokemonCaptured(widget.pokemon);
+          });
         }
       },
       child: Container(
@@ -176,23 +193,8 @@ class CapturarButton extends StatelessWidget {
     );
   }
 
-  Future<bool> isPokemonCaptured(Pokemon pokemon) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> pokemonsCapturados = prefs.getStringList('pokemons_capturados') ?? [];
-
-    return pokemonsCapturados.any((captured) {
-      return jsonDecode(captured)['id'] == pokemon.id;
-    });
-  }
-
-  Future<void> adicionarPokemonCapturado(Pokemon pokemon) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> pokemonsCapturados = prefs.getStringList('pokemons_capturados') ?? [];
-    pokemonsCapturados.add(jsonEncode(pokemon.toJson()));
-    prefs.setStringList('pokemons_capturados', pokemonsCapturados);
-  }
+  // Restante do código
 }
-
 
 Future<Pokemon> fetchPokemonById(int id) async {
   final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id'));
@@ -206,7 +208,7 @@ Future<Pokemon> fetchPokemonById(int id) async {
 }
 
 Future<List<Pokemon>> fetchPokemonList() async {
-  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10'));//1017-> esta 10 para reduzir o tempo de carregamento
+  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10'));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body)['results'];
@@ -234,4 +236,20 @@ Future<List<Pokemon>> fetchPokemonDetails(List<dynamic> pokemonData) async {
   }
 
   return pokemonList;
+}
+
+Future<bool> isPokemonCaptured(Pokemon pokemon) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> pokemonsCapturados = prefs.getStringList('pokemons_capturados') ?? [];
+
+  return pokemonsCapturados.any((captured) {
+    return jsonDecode(captured)['id'] == pokemon.id;
+  });
+}
+
+Future<void> adicionarPokemonCapturado(Pokemon pokemon) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> pokemonsCapturados = prefs.getStringList('pokemons_capturados') ?? [];
+  pokemonsCapturados.add(jsonEncode(pokemon.toJson()));
+  prefs.setStringList('pokemons_capturados', pokemonsCapturados);
 }

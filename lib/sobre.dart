@@ -69,7 +69,7 @@ class TelaSobre extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: TelaSobre(),
   ));
 }

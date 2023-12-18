@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:terceira_prova/pokemoncapturado.dart';
 import 'package:terceira_prova/sobre.dart';
 import 'package:terceira_prova/telacaptura.dart';
-import 'package:terceira_prova/telahome.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Pokémon List'),
+          
             bottom: const TabBar(
               tabs: [
                 //Tab(text: 'Home'), // Aba 1

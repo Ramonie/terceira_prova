@@ -35,6 +35,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_null_comparison
     if (_pokemon == null) {
       return const Scaffold(
         body: Center(
@@ -87,7 +88,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                       print('Pokémon solto: ${_pokemon.name}');
 
                       // Usando um Navigator global para navegar de volta
-                      Navigator.of(context as BuildContext).pop();
+                      Navigator.of(context).pop();
                     },
                     child: const Text('Confirmar'),
                   ),
@@ -95,7 +96,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancelar'),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),

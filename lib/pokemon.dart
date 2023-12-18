@@ -4,7 +4,6 @@ class Pokemon {
   final String imageUrl;
   final double? height;
   final double? weight;
-  // Adicione outros atributos conforme necessário
 
   Pokemon({
     required this.id,
@@ -12,7 +11,6 @@ class Pokemon {
     required this.imageUrl,
     required this.height,
     required this.weight,
-    // Adicione outros atributos ao construtor conforme necessário
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
@@ -24,7 +22,6 @@ class Pokemon {
           : '',
       height: json['height'] != null ? json['height'] / 10.0 : 0.0,
       weight: json['weight'] != null ? json['weight'] / 10.0 : 0.0,
-      // Adicione outros atributos conforme necessário
     );
   }
 
@@ -35,9 +32,8 @@ class Pokemon {
       'imageUrl': imageUrl,
       'height': height,
       'weight': weight,
-      // Adicione outros atributos ao mapa conforme necessário
     };
   }
 
-  carregarImagem() {}
+  // Método incompleto removido
 }
