@@ -200,7 +200,6 @@ class _CapturarButtonState extends State<CapturarButton> {
     );
   }
 
-  // Restante do código
 }
 
 Future<Pokemon> fetchPokemonById(int id) async {
@@ -215,7 +214,7 @@ Future<Pokemon> fetchPokemonById(int id) async {
 }
 
 Future<List<Pokemon>> fetchPokemonList() async {
-  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=1017'));
+  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=20'));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body)['results'];

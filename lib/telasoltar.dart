@@ -39,7 +39,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
       });
     } catch (e) {
       print('Erro ao carregar detalhes do Pokémon: $e');
-      // Lide com o erro conforme necessário
+   
     }
   }
 
@@ -98,7 +98,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Peso: ${_pokemon.weight}'),
               ),
-              // Adicione mais informações conforme necessário
+           
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
