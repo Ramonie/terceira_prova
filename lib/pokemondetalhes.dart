@@ -36,7 +36,7 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
       });
     } catch (e) {
       print('Erro ao carregar detalhes do Pokémon: $e');
-      // Lide com o erro conforme necessário
+     
       setState(() {
         _isLoading = false; // Marca o carregamento como concluído mesmo em caso de erro
       });
@@ -62,8 +62,8 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
             children: [
               Image.network(
                 _pokemon.imageUrl,
-                height: 400, // Ajuste conforme necessário
-                width: MediaQuery.of(context).size.width, // Use a largura total da tela
+                height: 400, 
+                width: MediaQuery.of(context).size.width, // Largura total da tela
                 fit: BoxFit.cover,
               ),
               Padding(

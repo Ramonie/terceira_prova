@@ -18,7 +18,7 @@ class PokemonList extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No Pokémon data available.'));
+          return const Center(child: Text('Nenhum dado Pokémon disponível.'));
         } else {
           return ListView.builder(
             itemCount: snapshot.data!.length,
@@ -59,7 +59,7 @@ class _TelaCapturaState extends State<TelaCaptura> with AutomaticKeepAliveClient
     final Random random = Random();
 
     while (numerosSorteados.length < 6) {
-      int sorteio = random.nextInt(20);
+      int sorteio = random.nextInt(20);//Sorteando de 0 a 20 para facilitar a verificação dos estado do botão de capturar pelo usuário, funciona normalmente de 0 a 1017
       if (!numerosSorteados.contains(sorteio)) {
         numerosSorteados.add(sorteio);
       }
@@ -108,7 +108,7 @@ class PokemonCapturaItem extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData) {
-          return Text('No Pokémon data available for number $numeroSorteado');
+          return Text('Nenhum dado Pokémon disponível para número $numeroSorteado');
         } else {
           final Pokemon pokemon = snapshot.data!;
           return ListTile(
@@ -155,7 +155,7 @@ class _CapturarButtonState extends State<CapturarButton> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildButton(Colors.grey, 'Carregando...');
         } else if (snapshot.hasError) {
-          print('Error checking if Pokemon is captured: ${snapshot.error}');
+          print('Erro ao verificar se o Pokémon foi capturado: ${snapshot.error}');
           return _buildButton(Colors.red, 'Capturar');
         } else {
           return _buildButton(snapshot.data! ? Colors.grey : Colors.red, 'Capturar');
@@ -214,15 +214,15 @@ Future<Pokemon> fetchPokemonById(int id) async {
 }
 
 Future<List<Pokemon>> fetchPokemonList() async {
-  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=20'));
+  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=20'));//esta carregando apenas 20 pokemons para facilitar o carregamento, funciona normalmente com 1017 pokemons
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body)['results'];
     final List<Pokemon> pokemonList = (await fetchPokemonDetails(data)).cast<Pokemon>();
     return pokemonList;
   } else {
-    print('Failed to load Pokémon list. Status Code: ${response.statusCode}');
-    throw Exception('Failed to load Pokémon list');
+    print('Falha ao carregar a lista de Pokémons. Status Code: ${response.statusCode}');
+    throw Exception('Falha ao carregar a lista de Pokémons');
   }
 }
 
@@ -236,8 +236,8 @@ Future<List<Pokemon>> fetchPokemonDetails(List<dynamic> pokemonData) async {
       final Pokemon pokemon = Pokemon.fromJson(data);
       pokemonList.add(pokemon);
     } else {
-      print('Failed to load Pokémon details. Status Code: ${response.statusCode}');
-      throw Exception('Failed to load Pokémon details');
+      print('Falha ao carregar detalhes do Pokémon. Status Code: ${response.statusCode}');
+      throw Exception('Falha ao carregar detalhes do Pokémon');
     }
   }
 

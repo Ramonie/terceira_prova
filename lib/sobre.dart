@@ -29,7 +29,6 @@ class TelaSobre extends StatelessWidget {
               cargo: 'Desenvolvedor',
               avatarUrl: 'https://avatars.githubusercontent.com/u/55808322?v=4',
             ),
-            // Adicione mais cards conforme necessário
           ],
         ),
       ),
