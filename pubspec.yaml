@@ -20,12 +20,16 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    #1) Crie o aplicativo “terceira_prova” que deve funcionar para dispositivos Android ou iOS. Crie a
+#Widget TelaHome que configura um Widget MaterialApp. Crie um Widget TelaHome que deve
+#apresentar informações sobre o aplicativo. Adicione um ícone customizado para o aplicativo utilizando
+#o pacote flutter_launcher_icons (https://pub.dev/packages/flutter_launcher_icons) (0,5 ponto)
   flutter_launcher_icons: ^0.10.0
 
 flutter_icons:
   android: true
   ios: true
-
+  web: true
   image_path: "assets/pokeball.png"
 
 flutter:

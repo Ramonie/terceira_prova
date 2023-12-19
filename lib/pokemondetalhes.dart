@@ -82,7 +82,7 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Peso: ${_pokemon.weight}'),
               ),
-              // Adicione mais informações conforme necessário
+      
             ],
           ),
         ),
