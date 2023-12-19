@@ -165,9 +165,13 @@ class _CapturarButtonState extends State<CapturarButton> {
     return InkWell(
       onTap: () async {
         bool isCaptured = await _isCapturedFuture;
+        
 
         if (!isCaptured) {
+          
+          
           print('Capturou o Pokémon ${widget.pokemon.name}!');
+          
           await adicionarPokemonCapturado(widget.pokemon);
           // Atualiza a lista de sorteios após a captura
           TelaCaptura telaCaptura = TelaCaptura();
@@ -208,7 +212,7 @@ Future<Pokemon> fetchPokemonById(int id) async {
 }
 
 Future<List<Pokemon>> fetchPokemonList() async {
-  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10'));
+  final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=1017'));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = json.decode(response.body)['results'];

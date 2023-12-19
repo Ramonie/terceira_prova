@@ -1,8 +1,12 @@
-// ignore_for_file: unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:terceira_prova/pokemon.dart';
 import 'package:terceira_prova/telacaptura.dart';
+//7) Crie uma widget chamada TelaDetalhesPokemon que recebe como parâmetro um ID e possui
+//Texts e Imagens com os dados do registro. Carregue os dados do através da API e do banco de
+//dados para mostrar informações completas sobre o Pokémon. (0,5 ponto)
+
+
 
 class TelaDetalhesPokemon extends StatefulWidget {
   final int pokemonId;
@@ -15,6 +19,7 @@ class TelaDetalhesPokemon extends StatefulWidget {
 
 class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
   late Pokemon _pokemon;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -27,16 +32,20 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
       final pokemon = await fetchPokemonById(widget.pokemonId);
       setState(() {
         _pokemon = pokemon;
+        _isLoading = false; // Marca o carregamento como concluído
       });
     } catch (e) {
       print('Erro ao carregar detalhes do Pokémon: $e');
       // Lide com o erro conforme necessário
+      setState(() {
+        _isLoading = false; // Marca o carregamento como concluído mesmo em caso de erro
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_pokemon == null) {
+    if (_isLoading) {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),

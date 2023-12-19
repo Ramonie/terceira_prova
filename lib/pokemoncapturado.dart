@@ -5,6 +5,9 @@ import 'package:terceira_prova/telasoltar.dart';
 import 'dart:convert';
 
 import 'pokemondetalhes.dart';
+//5) Implemente uma widget TelaPokemonCapturado e adicione um ListView. Liste todos os Pokémons
+//capturados que estão cadastrados no banco de dados local. Caso não haja nenhum Pokémon
+//capturado ainda, crie uma Widget de Text informando essa condição. (1,0 ponto)
 
 class TelaPokemonCapturado extends StatefulWidget {
   const TelaPokemonCapturado({Key? key}) : super(key: key);
@@ -14,7 +17,7 @@ class TelaPokemonCapturado extends StatefulWidget {
 }
 
 class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
-  late List<Pokemon> pokemonsCapturados = [] ;
+  late List<Pokemon> pokemonsCapturados = [];
 
   @override
   void initState() {
@@ -48,7 +51,10 @@ class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
       return ListView.builder(
         itemCount: pokemonsCapturados.length,
         itemBuilder: (context, index) {
-          final pokemon = pokemonsCapturados[index];
+          final Pokemon pokemon = pokemonsCapturados[index];
+//6) Adicione uma widget de GestureDetector nos ListItems da TelaPokemonCapturado para que com
+//um toque simples a aplicação navegue para o TelaDetalhesPokemon e com o toque longo a
+//aplicação navegue para o TelaSoltarPokemon. (1,0 ponto)
           return GestureDetector(
             onTap: () {
               // Navegar para TelaDetalhesPokemon
@@ -59,18 +65,22 @@ class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
                 ),
               );
             },
-            onLongPress: () {
+            onLongPress: () async {
               // Navegar para TelaSoltarPokemon com um toque longo
-              Navigator.push(
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => TelaSoltarPokemon(pokemonId: pokemon.id),
                 ),
               );
+
+              // Após soltar o Pokémon, recarrega a lista
+              _carregarPokemonsCapturados();
             },
             child: ListTile(
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(pokemon.imageUrl),
+                radius: 25, // Defina o raio conforme necessário
               ),
               title: Text(pokemon.name),
               subtitle: Text('ID: ${pokemon.id}'),

@@ -5,71 +5,63 @@ class TelaSobre extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Desenvolvedores:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              'Desenvolvedores do Aplicativo',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 8),
-            _buildDesenvolvedor(
+            SizedBox(height: 16),
+               DesenvolvedorCard(
               nome: 'Luiz Felipe Henrique de Souza',
-              papel: 'Bombril',
-              imagemUrl: 'https://avatars.githubusercontent.com/u/51883536?v=4', // Substitua pela URL da imagem do Pokémon
-            ),
-            _buildDesenvolvedor(
+              cargo: 'Desenvolvedor',
+              avatarUrl: 'https://avatars.githubusercontent.com/u/51883536?v=4',
+               ),
+            DesenvolvedorCard(
               nome: 'Ramonie Martins de Lima',
-              papel: 'Bombril',
-              imagemUrl: 'https://avatars.githubusercontent.com/u/55808322?v=4', // Substitua pela URL da imagem do Pokémon
+              cargo: 'Desenvolvedor',
+              avatarUrl: 'https://avatars.githubusercontent.com/u/55808322?v=4',
             ),
+            // Adicione mais cards conforme necessário
           ],
         ),
       ),
     );
   }
-
-  Widget _buildDesenvolvedor({
-    required String nome,
-    required String papel,
-    required String imagemUrl,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(imagemUrl),
-            ),
-            const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Nome: $nome',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  'Função: $papel',
-                  style: const TextStyle(fontSize: 14),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-      ],
-    );
-  }
 }
 
-void main() {
-  runApp(const MaterialApp(
-    home: TelaSobre(),
-  ));
+class DesenvolvedorCard extends StatelessWidget {
+  final String nome;
+  final String cargo;
+  final String avatarUrl;
+
+  const DesenvolvedorCard({
+    Key? key,
+    required this.nome,
+    required this.cargo,
+    required this.avatarUrl,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 25,
+          backgroundImage: NetworkImage(avatarUrl),
+        ),
+        title: Text(nome),
+        subtitle: Text(cargo),
+      ),
+    );
+  }
 }
