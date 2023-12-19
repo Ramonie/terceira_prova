@@ -60,6 +60,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_null_comparison
     if (_pokemon == null) {
       return const Scaffold(
         body: Center(
@@ -76,10 +77,10 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.network(
-                _pokemon.imageUrl,
-                height: 400,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover,
+              _pokemon?.imageUrl ?? '', // Adiciona uma verificação de nulo e usa uma string vazia se _pokemon for nulo
+              height: 400,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -125,6 +125,9 @@ class PokemonCapturaItem extends StatelessWidget {
     );
   }
 }
+//4) Implemente o botão Capturar Pokémon da widget TelaCaptura que deve salvar os dados do
+//Pokémon relacionado da ListView. Os dados dos Pokémons capturados devem ser salvos no banco
+//de dados local. (1,0 pontos)
 
 class CapturarButton extends StatefulWidget {
   final Pokemon pokemon;
